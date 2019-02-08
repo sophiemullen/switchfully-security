@@ -44,4 +44,10 @@ public class AvocadoTest extends RestAssuredTest {
                 .assertThat()
                 .statusCode(UNAUTHORIZED.value());
     }
+
+    @Test
+    public void joinArmy_givenName_shouldCreateUserInTheDatabase() {
+
+    }
+
 }
