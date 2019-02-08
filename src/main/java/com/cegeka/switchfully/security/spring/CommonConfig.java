@@ -11,7 +11,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 @Configuration
 public class CommonConfig {
 
-
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
