@@ -14,9 +14,7 @@ public class ArmyResource {
 
     public static final String ARMY_RESOURCE_PATH = "/armies";
 
-    //@PreAutorise annotation only allows user with any of the given roles to access the method. (you could also place it on class level)
-    //advantages: it's right near the code for the actual rest-controller
-    //disadvantages: you may have to repeat it for every method.
+    // need to use hasAuthority instead of hasAnyRole
     @PreAuthorize("hasAnyRole('GENERAL', 'PRIVATE')")
     @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE, path = "/{country}")
     public ArmyInfoDto getDeployedArmyInfo(@PathVariable(value = "country") String country) {
