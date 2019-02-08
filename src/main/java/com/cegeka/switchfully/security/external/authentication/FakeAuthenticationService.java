@@ -12,7 +12,7 @@ public class FakeAuthenticationService {
     private List<ExternalAuthenticaton> externalAuthenticatons = newArrayList(
             ExternalAuthenticaton.externalAuthenticaton().withUsername("ZWANETTA").withPassword("WORST").withRoles(newArrayList("CIVILIAN")),
             ExternalAuthenticaton.externalAuthenticaton().withUsername("JMILLER").withPassword("THANKS").withRoles(newArrayList("PRIVATE")),
-            ExternalAuthenticaton.externalAuthenticaton().withUsername("UNCLE").withPassword("SAM").withRoles(newArrayList("HUMAN_RELATIONSHIPS")),
+            ExternalAuthenticaton.externalAuthenticaton().withUsername("UNCLE").withPassword("SAM").withRoles(newArrayList("HUMAN_RELATIONS")),
             ExternalAuthenticaton.externalAuthenticaton().withUsername("GENNY").withPassword("RALLY").withRoles(newArrayList("GENERAL"))
     );
 
