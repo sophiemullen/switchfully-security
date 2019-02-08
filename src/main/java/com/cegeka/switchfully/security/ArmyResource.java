@@ -1,5 +1,6 @@
 package com.cegeka.switchfully.security;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,32 +14,37 @@ public class ArmyResource {
 
     public static final String ARMY_RESOURCE_PATH = "/armies";
 
-    @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE ,path = "/{country}")
-    public ArmyInfoDto getDeployedArmyInfo(@PathVariable(value = "country") String country){
-        return ArmyInfoDto.armyInfoDto()
-                .withCountry(country)
-                .withNumberOfTroops(2000)
-                .withxCoordinateOfBase(15)
-                .withyCoordinateOfBase(20);
+    @PreAuthorize("hasRole('PRIVATE') or hasRole('GENERAL')")
+    @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE, path = "/{country}")
+    public ArmyInfoDto getDeployedArmyInfo(@PathVariable(value = "country") String country) {
+            return ArmyInfoDto.armyInfoDto()
+                    .withCountry(country)
+                    .withNumberOfTroops(2000)
+                    .withxCoordinateOfBase(15)
+                    .withyCoordinateOfBase(20);
     }
 
+    @PreAuthorize("hasRole('CIVILIAN')")
     @RequestMapping(method = RequestMethod.POST)
-    public void joinArmy(){
+    public void joinArmy() {
         //TODO
     }
 
+    @PreAuthorize("hasRole('HUMAN_RELATIONSHIPS')")
     @RequestMapping(method = RequestMethod.POST, path = "/promote/{name}")
-    public void promotePrivate(@PathVariable(value = "name") String name){
+    public void promotePrivate(@PathVariable(value = "name") String name) {
         //TODO
     }
 
+    @PreAuthorize("hasRole('HUMAN_RELATIONSHIPS')")
     @RequestMapping(method = RequestMethod.POST, path = "/discharge/{name}")
-    public void dischargeSoldier(@PathVariable(value = "name") String name){
+    public void dischargeSoldier(@PathVariable(value = "name") String name) {
         //TODO
     }
 
+    @PreAuthorize("hasRole('GENERAL')")
     @RequestMapping(method = RequestMethod.GET, path = "/nuke")
-    public String launchNukes(){
+    public String launchNukes() {
         return "The world ends. Not with a bang but a whimper";
     }
 }

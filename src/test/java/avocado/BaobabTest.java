@@ -90,6 +90,16 @@ public class BaobabTest extends RestAssuredTest {
                 .statusCode(OK.value());
     }
 
+    @Test
+    public void launchNukes_givenUserWithRoleGeneralAndHR_ThenShouldGetResult() {
+        givenRequestForUser("SOPHIE", "RALLY")
+                .when()
+                .get(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "nuke"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
 
 
 
@@ -192,6 +202,16 @@ public class BaobabTest extends RestAssuredTest {
     @Test
     public void dischargePrivate_givenUserWithRoleHumanRelations_ThenShouldGetResult() {
         givenRequestForUser("UNCLE", "SAM")
+                .when()
+                .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "discharge", "ZWANETTA"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void dischargePrivate_givenUserWithRoleGeneralAndHumanRelations_ThenShouldGetResult() {
+        givenRequestForUser("SOPHIE", "RALLY")
                 .when()
                 .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "discharge", "ZWANETTA"))
                 .then()

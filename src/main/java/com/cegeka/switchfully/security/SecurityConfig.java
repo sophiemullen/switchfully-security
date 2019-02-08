@@ -3,6 +3,7 @@ package com.cegeka.switchfully.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -20,7 +22,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.
+// fix this: most specific to least speific URL, otherwise it will stop at the first match
+//                authorizeRequests()
+//                .antMatchers("/armies/promote/**").hasRole("HUMAN_RELATIONSHIPS")
+//                .antMatchers("/armies/discharge/**").hasRole("HUMAN_RELATIONSHIPS")
+//                .antMatchers("/nuke/**").hasRole("GENERAL")
+//                .antMatchers("/armies").hasRole("CIVILIAN")
+//                .antMatchers("/armies/{country}").hasRole("PRIVATE")
+//                .antMatchers("/armies/{country}").hasRole("GENERAL");
+
+                csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().httpBasic()
@@ -44,7 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("UNCLE").password(("{MD5}{ANDRE}212acec2581451c651fb0ee15db1ad59")).roles("HUMAN_RELATIONSHIPS")
                 .and()
 //                PASSWORD = RALLY
-                .withUser("GENNY").password(("{MD5}{FRIENDS4LIFE}1bf699ee7fe9e40b317197702b6dc44f")).roles("GENERAL");
+                .withUser("GENNY").password(("{MD5}{FRIENDS4LIFE}1bf699ee7fe9e40b317197702b6dc44f")).roles("GENERAL")
+                .and()
+                .withUser("SOPHIE").password(("{MD5}{FRIENDS4LIFE}1bf699ee7fe9e40b317197702b6dc44f")).roles("GENERAL", "HUMAN_RELATIONSHIPS");
     }
 
 }
